@@ -1,6 +1,5 @@
-from urllib.request import Request
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Request
 from pydantic import BaseModel
 from starlette import status
 from passlib.context import CryptContext
@@ -10,9 +9,12 @@ from sqlalchemy.orm import Session
 from model import User
 from jose import jwt, JWTError
 from datetime import datetime, timedelta, timezone
+from fastapi.templating import Jinja2Templates
 
 bcrypt_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_bearer = OAuth2PasswordBearer(tokenUrl="/auth/token")
+
+templates = Jinja2Templates(directory="templates")
 
 
 def get_db():
@@ -96,3 +98,13 @@ async def login_for_access_token(form_data: Annotated[OAuth2PasswordRequestForm,
 
     token = create_access_token(user.username, user.id , user.role ,expires_delta=timedelta(minutes=60))
     return {"access_token": token, "token_type": "bearer"}
+
+
+@router.get("/login-page")
+def render_login_page(request: Request):
+    return templates.TemplateResponse("login.html", {"request": request})
+
+@router.get("/register-page")
+def render_register_page(request: Request):
+    return templates.TemplateResponse("register.html", {"request": request})
+

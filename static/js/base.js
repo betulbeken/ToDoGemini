@@ -12,7 +12,7 @@
                 title: data.title,
                 description: data.description,
                 priority: parseInt(data.priority),
-                complete: false
+                completed: false
             };
 
             try {
@@ -54,7 +54,7 @@
             title: data.title,
             description: data.description,
             priority: parseInt(data.priority),
-            complete: data.complete === "on"
+            completed: data.completed === "on"
         };
 
         try {
