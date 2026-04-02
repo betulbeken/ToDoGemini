@@ -3,10 +3,10 @@ from fastapi import APIRouter, Depends, HTTPException, Request
 from pydantic import BaseModel
 from starlette import status
 from passlib.context import CryptContext
-from database import SessionLocal
+from ..database import SessionLocal
 from typing import Annotated
 from sqlalchemy.orm import Session
-from model import User
+from ..model import User
 from jose import jwt, JWTError
 from datetime import datetime, timedelta, timezone
 from fastapi.templating import Jinja2Templates
@@ -14,7 +14,7 @@ from fastapi.templating import Jinja2Templates
 bcrypt_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_bearer = OAuth2PasswordBearer(tokenUrl="/auth/token")
 
-templates = Jinja2Templates(directory="templates")
+templates = Jinja2Templates(directory="app/templates")
 
 
 def get_db():

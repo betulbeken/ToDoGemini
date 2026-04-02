@@ -6,9 +6,9 @@ from typing import Annotated
 from starlette import status
 from starlette.responses import RedirectResponse
 
-from database import SessionLocal, engine
-from model import Base, ToDo
-from routers.auth import get_current_user
+from ..database import SessionLocal, engine
+from ..model import Base, ToDo
+from ..routers.auth import get_current_user
 from fastapi.templating import Jinja2Templates
 from dotenv import load_dotenv
 import google.generativeai as genai
@@ -20,7 +20,7 @@ from bs4 import BeautifulSoup
 
 
 
-templates = Jinja2Templates(directory="templates")
+templates = Jinja2Templates(directory="app/templates")
 router = APIRouter(
     prefix="/todo",
     tags= ["Todo"],
