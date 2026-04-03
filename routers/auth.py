@@ -14,7 +14,7 @@ from fastapi.templating import Jinja2Templates
 bcrypt_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_bearer = OAuth2PasswordBearer(tokenUrl="/auth/token")
 
-templates = Jinja2Templates(directory="app/templates")
+templates = Jinja2Templates(directory="app/ templates")
 
 
 def get_db():
